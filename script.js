@@ -1,6 +1,7 @@
 const canvas = document.getElementById('canvas');
 const artwork = new Image();
 const text = new Image();
+const texture = new Image();
 let side = 'front';
 
 if (canvas.getContext) {
@@ -23,27 +24,24 @@ if (canvas.getContext) {
         artwork.src = "uploads/back-artwork.png";
         text.src = "uploads/back-text.png";
     }
+    texture.src = "uploads/gold6.jpg";
 
     const centerPosX = centerOfX - (width / 2);
     const centerPosY = centerOfY - (height / 2);
 
     artwork.onload = () => {
         text.onload = () => {
-            // Set canvas size
-            canvas.height = artwork.height;
-            canvas.width = artwork.width;
+            texture.onload = () => {
+                // Set canvas size
+                canvas.height = artwork.height;
+                canvas.width = artwork.width;
 
-            let grad = ctx.createLinearGradient(0, 0, 500, 0);
-            grad.addColorStop(0, "yellow");
-            grad.addColorStop(0.5, "brown");
-            grad.addColorStop(1, "yellow");
-            ctx.fillStyle = grad;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.globalCompositeOperation = 'destination-in';
-            ctx.drawImage(text, 0, 0);
-
-            ctx.globalCompositeOperation = 'destination-over';
-            ctx.drawImage(artwork, 0, 0);
+                ctx.drawImage(texture, 0, 0);
+                ctx.globalCompositeOperation = 'destination-in';
+                ctx.drawImage(text, 0, 0);
+                ctx.globalCompositeOperation = 'destination-over';
+                ctx.drawImage(artwork, 0, 0);
+            }
         }
     }
 }
