@@ -4,6 +4,18 @@ const text = new Image();
 const texture = new Image();
 let side = 'front';
 
+    if (side == 'front') {
+        artwork.src = "uploads/front-artwork.png";
+        text.src = "uploads/front-text.png";
+    } else if (side == 'back') {
+        artwork.src = "uploads/back-artwork.png";
+        text.src = "uploads/back-text.png";
+    }
+    texture.src = "uploads/gold3.jpg";
+
+    document.getElementById('artwork').src = artwork.src;
+    document.getElementById('text').src = text.src;
+
 if (canvas.getContext) {
     const ctx = canvas.getContext('2d');
     const centerOfX = canvas.width / 2;
@@ -14,21 +26,6 @@ if (canvas.getContext) {
     canvas.height = 0;
     console.log(canvas.width, canvas.height);
 
-    let width = 150;
-    let height = 100;
-
-    if (side == 'front') {
-        artwork.src = "uploads/front-artwork.png";
-        text.src = "uploads/front-text.png";
-    } else if (side == 'back') {
-        artwork.src = "uploads/back-artwork.png";
-        text.src = "uploads/back-text.png";
-    }
-    texture.src = "uploads/gold6.jpg";
-
-    const centerPosX = centerOfX - (width / 2);
-    const centerPosY = centerOfY - (height / 2);
-
     artwork.onload = () => {
         text.onload = () => {
             texture.onload = () => {
@@ -36,9 +33,10 @@ if (canvas.getContext) {
                 canvas.height = artwork.height;
                 canvas.width = artwork.width;
 
-                ctx.drawImage(texture, 0, 0);
-                ctx.globalCompositeOperation = 'destination-in';
+                // Draw images
                 ctx.drawImage(text, 0, 0);
+                ctx.globalCompositeOperation = 'source-in';
+                ctx.drawImage(texture, 0, 0);
                 ctx.globalCompositeOperation = 'destination-over';
                 ctx.drawImage(artwork, 0, 0);
             }
