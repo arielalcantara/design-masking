@@ -4,17 +4,20 @@ const text = new Image();
 const texture = new Image();
 let side = 'front';
 
-    if (side == 'front') {
-        artwork.src = "uploads/front-artwork.png";
-        text.src = "uploads/front-text.png";
-    } else if (side == 'back') {
-        artwork.src = "uploads/back-artwork.png";
-        text.src = "uploads/back-text.png";
-    }
-    texture.src = "uploads/gold3.jpg";
+// Set image sources
+texture.src = "uploads/gold3.jpg";
 
-    document.getElementById('artwork').src = artwork.src;
-    document.getElementById('text').src = text.src;
+if (side == 'front') {
+    artwork.src = "uploads/front-artwork.png";
+    text.src = "uploads/front-text.png";
+} else if (side == 'back') {
+    artwork.src = "uploads/back-artwork.png";
+    text.src = "uploads/back-text.png";
+}
+
+// Assign src for img elements
+document.getElementById('artwork').src = artwork.src;
+document.getElementById('text').src = text.src;
 
 if (canvas.getContext) {
     const ctx = canvas.getContext('2d');
