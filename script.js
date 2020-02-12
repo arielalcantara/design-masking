@@ -5,8 +5,6 @@ const texture = new Image();
 let side = 'front';
 
 // Set image sources
-texture.src = "uploads/gold3.jpg";
-
 if (side == 'front') {
     artwork.src = "uploads/front-artwork.png";
     text.src = "uploads/front-text.png";
@@ -14,6 +12,8 @@ if (side == 'front') {
     artwork.src = "uploads/back-artwork.png";
     text.src = "uploads/back-text.png";
 }
+
+texture.src = "uploads/gold3.jpg";
 
 // Assign src for img elements
 document.getElementById('artwork').src = artwork.src;
