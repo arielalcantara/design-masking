@@ -1,19 +1,23 @@
 body {
     margin: 0;
-    background-color: gray;
+    background-color: gray !important;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.content-container {
+.upload-container {
+    padding: 10px;
+}
+.preview-container {
     width: 100%;
     display: flex;
+    padding: 10px;
 }
-.item {
+.preview-item {
     border: 1px solid black;
     background-color: white;
 }
-.item + .item {
+.preview-item + .preview-item {
     margin-left: 10px;
 }
