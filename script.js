@@ -7,7 +7,7 @@ let side = 'front';
 // Set image sources
 if (side == 'front') {
     artwork.src = "uploads/front-artwork.png";
-    text.src = "uploads/front-text-white.png";
+    text.src = "uploads/front-text.png";
 } else if (side == 'back') {
     artwork.src = "uploads/back-artwork.png";
     text.src = "uploads/back-text.png";
@@ -42,36 +42,20 @@ if (canvas.getContext) {
                 let imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
                 imageData.data = normalizeImage(imageData.data);
                 ctx.putImageData(imageData, 0, 0);
+                // ctx.imageSmoothingEnabled;
                 ctx.globalCompositeOperation = 'source-in';
                 ctx.drawImage(texture, 0, 0);
 
-                let imageFeatheredData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                imageFeatheredData.data = getFeatheredAreas(imageData.data);
+                // let imageFeatheredData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+                // imageFeatheredData.data = getFeatheredAreas(imageData.data);
 
                 // Draw remaining images
-                ctx.globalCompositeOperation = 'source-in';
-                ctx.putImageData(imageFeatheredData, 0, 0);
+                // ctx.globalCompositeOperation = 'source-in';
+                // ctx.putImageData(imageFeatheredData, 0, 0);
                 ctx.globalCompositeOperation = 'destination-over';
                 ctx.drawImage(artwork, 0, 0);
             }
         }
-    }
-}
-
-const uploadFrontBtn = document.getElementById('upload_front_btn');
-uploadFrontBtn.addEventListener('click', () => {
-    uploadImage('front');
-});
-
-const uploadBackBtn = document.getElementById('upload_back_btn');
-uploadBackBtn.addEventListener('click', () => {
-    uploadImage('back');
-});
-
-function uploadImage(side) {
-    if (side && side.length && side.length != 0) {
-        console.log(side);
-        return;
     }
 }
 
@@ -80,7 +64,7 @@ function normalizeImage(data) {
     console.log(data);
 
     for (let i = 0; i < data.length; i++) {
-        if (!checkIfAlphaIndex(i + 1) || checkIfAlpha(data, i)) {
+        if (!checkIfAlphaIndex(i) || checkIfAlpha(data, i)) {
             continue;
         }
 
@@ -89,36 +73,11 @@ function normalizeImage(data) {
             continue;
         }
 
-        // if (!checkIfBlack(dataCopy[i - 3], dataCopy[i - 2], dataCopy[i - 1] && calculateRGBStandardDeviation(dataCopy[i - 3], dataCopy[i - 2], dataCopy[i - 1]) < 25)) {
         // if (calculateRGBStandardDeviation(dataCopy[i - 3], dataCopy[i - 2], dataCopy[i - 1]) < 3) {
+
+        // if (!checkIfBlack(dataCopy[i - 3], dataCopy[i - 2], dataCopy[i - 1])) {
         //     data = changeColorToBlack(data, i);
-        //     data[i] = 255;
-        //     continue;
-        // }
-    }
-
-    console.log(data);
-    return data;
-}
-
-function getFeatheredAreas(data) { // modified func for getting non-B&W pixels
-    let dataCopy = data; // Create data copy for reference
-    console.log(data);
-
-    for (let i = 0; i < data.length; i++) {
-        if (!checkIfAlphaIndex(i + 1) || checkIfAlpha(data, i)) {
-            continue;
-        }
-
-        if (checkIfWhite(dataCopy[i - 3], dataCopy[i - 2], dataCopy[i - 1]) || checkIfBlack(dataCopy[i - 3], dataCopy[i - 2], dataCopy[i - 1])) {
-            data = changeColorToAlpha(data, i);
-            continue;
-        }
-
-        // if (!checkIfBlack(dataCopy[i - 3], dataCopy[i - 2], dataCopy[i - 1] && calculateRGBStandardDeviation(dataCopy[i - 3], dataCopy[i - 2], dataCopy[i - 1]) < 25)) {
-        // if (calculateRGBStandardDeviation(dataCopy[i - 3], dataCopy[i - 2], dataCopy[i - 1]) < 3) {
-        //     data = changeColorToBlack(data, i);
-        //     data[i] = 255;
+        //     // data[i] = 255;
         //     continue;
         // }
     }
@@ -128,20 +87,26 @@ function getFeatheredAreas(data) { // modified func for getting non-B&W pixels
 }
 
 function changeColorToBlack(data, i) { // For removing image feathering
-    for (let j = 1; j < 4; j++) {
-        data[i - j] = 0;
-    }
+    data[i - 1] = 0;
+    data[i - 2] = 0;
+    data[i - 3] = 0;
+    // for (let j = 1; j < 4; j++) {
+    //     data[i - j] = 0;
+    // }
 
     return data;
 }
 
 function changeColorToAlpha(data, i) {
+    data[i - 1] = 0;
+    data[i - 2] = 0;
+    data[i - 3] = 0;
     data[i] = 0;
     return data;
 }
 
 function checkIfAlphaIndex(index) {
-     return (index % 4) == 0;
+     return ((index + 1) % 4) == 0;
 }
 
 function checkIfAlpha(data, i) {
@@ -161,7 +126,7 @@ function calculateRGBStandardDeviation(red, green, blue) {
 }
 
 // function changeWhiteToAlpha(data) {
-//     dataCopy = data; // Create data copy for reference
+//     dataCopy[i]= data; // Create data copy for reference
 //     console.log(data);
 
 //     for (let i = 0; i < data.length; i++) {
