@@ -1,7 +1,7 @@
 const canvas = document.getElementById('canvas');
-const artwork = new Image();
-const text = new Image();
-const texture = new Image();
+// const artwork = new Image();
+// const text = new Image();
+// const texture = new Image();
 let side = 'front';
 
 // Set image sources
@@ -12,6 +12,15 @@ if (side == 'front') {
     artwork.src = "uploads/back-artwork.png";
     text.src = "uploads/back-text.png";
 }
+
+// // Set image sources
+// if (side == 'front') {
+//     artwork.src = "uploads/front-artwork.png";
+//     text.src = "uploads/front-text.png";
+// } else if (side == 'back') {
+//     artwork.src = "uploads/back-artwork.png";
+//     text.src = "uploads/back-text.png";
+// }
 
 texture.src = "uploads/gold3.jpg";
 

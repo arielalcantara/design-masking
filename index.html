@@ -9,26 +9,39 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row panel upload-container">
-            <div class="col-xs-6 front-upload-container">
-                <input type="file" id="front_artwork">
-                <input type="file" id="front_text">
-                <button class="btn-primary" id="upload_front_btn">Upload</button>
-            </div>
-            <div class="col-xs-6 back-upload-container">
-                <input type="file" id="back_artwork">
-                <input type="file" id="back_text">
-                <button class="btn-primary" id="upload_back_btn">Upload</button>
-            </div>
-        </div>
-        <div class="panel preview-container">
-            <img class="preview-item" id="artwork"></img>
-            <img class="preview-item" id="text"></img>
-            <canvas class="preview-item" id="canvas"></canvas>
+    <div class="panel upload-container">
+        <h2 class="card-heading">Files</h2>
+        <div class="front-upload-container">
+            <label>Artwork:</label>
+            <input class="file-input" id="front_artwork" type="file">
+            <label>Text:</label>
+            <input class="file-input" id="front_text" type="file">
+            <label>Texture:</label>
+            <select class="file-input select" id="texture">
+                <option value="gold-default">Gold (Default)</option>
+                <option value="gold-shiny-h">Gradient Gold</option>
+                <option value="silver-shiny-h">Gradient Silver (H)</option>
+                <option value="silver-shiny-v">Gradient Silver (V)</option>
+            </select>
+            <button class="btn-primary" id="upload_front_btn">Process Images</button>
         </div>
     </div>
-    <script src="script.js"></script>
+    <div class="panel upload-container hidden" id="back_upload_container">
+        <h2 class="card-heading">Back</h2>
+        <div class="back-upload-container">
+            <label>Artwork:</label>
+            <input class="btn-default file-input" id="back_artwork" type="file">
+            <label>Text:</label>
+            <input class="btn-default file-input" id="back_text" type="file">
+            <button class="btn-primary" id="upload_back_btn">Process Images</button>
+        </div>
+    </div>
+    <div class="panel preview-container">
+        <img class="preview-item hidden" id="artwork"></img>
+        <img class="preview-item hidden" id="text"></img>
+        <img class="preview-item hidden" id="texture_preview"></img>
+        <canvas class="preview-item hidden" id="canvas"></canvas>
+    </div>
     <script src="upload.js"></script>
 </body>
 </html>
