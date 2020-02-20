@@ -1,35 +1,16 @@
-let frontSideUploaded = 0;
-let sides = ['front', 'back'];
-let uploadFrontBtn = document.getElementById('upload_front_btn');
-let uploadBackBtn = document.getElementById('upload_back_btn');
-let frontArtworkInput = document.getElementById('front_artwork');
-let frontTextInput = document.getElementById('front_text');
-let backArtworkInput = document.getElementById('back_artwork');
-let backTextInput = document.getElementById('back_text');
-let fileInputs = [frontArtworkInput, frontTextInput, backArtworkInput, backTextInput];
-let buttons = [uploadFrontBtn, uploadBackBtn];
+let uploadBtn = document.getElementById('upload_front_btn');
+let artworkInput = document.getElementById('front_artwork');
+let textInput = document.getElementById('front_text');
+let fileInputs = [artworkInput, textInput];
 
 let artwork = new Image();
 let text = new Image();
 let texture = new Image();
 
-window.addEventListener('load', () => {
-    console.log('Window loaded');
-    uploadBackBtn.disabled = true;
-    uploadBackBtn.classList.add('disabled');
-});
-
 fileInputs.forEach(fileInput => fileInput.addEventListener('change', e => uploadImage(e.target)));
 
 function uploadImage(fileInput) {
-    console.log('upload', fileInput);
     file = fileInput.files[0];
-    // Add file type verification here
-
-    side =  fileInput.id.includes('front') ? 'front' : 'back';
-    console.log('side', side);
-
-    if (side == 'back' && frontArtworkInput.files.length == 0 && frontTextInput.files.length == 0) return;
 
     let reader = new FileReader();
     let image = fileInput.id.includes('artwork') ? artwork : text;
@@ -41,25 +22,22 @@ function uploadImage(fileInput) {
     reader.addEventListener('load', () => {
         image.src = reader.result;
         previewType = image == artwork ? 'artwork' : 'text';
-        console.log(previewType);
         preview = document.getElementById(previewType);
         preview.src = image.src
         preview.classList.remove('hidden');
     });
-
-    console.log('Upload success');
 }
 
-buttons.forEach(btn => btn.addEventListener('click', e => processImage()));
+uploadBtn.addEventListener('click', e => processImage());
 
 function processImage() {
     let canvas = document.getElementById('canvas');
-    texture.src = 'uploads/' + document.getElementById('texture').value + '.jpg';
+    texture.src = 'assets/images/' + document.getElementById('texture').value + '.jpg';
     texturePreview = document.getElementById('texture_preview');
     texturePreview.src = texture.src;
     texturePreview.classList.remove('hidden');
-    texturePreview.width = 276;
-    texturePreview.height = 276;
+    texturePreview.width = artwork.height;
+    texturePreview.height = artwork.height;
 
     if (canvas.getContext) {
         let ctx = canvas.getContext('2d');
@@ -86,14 +64,10 @@ function processImage() {
             canvas.classList.remove('hidden');
         }
     }
-
-    frontSideUploaded = 1;
-    // enableBackUpload();
 }
 
 function normalizeImage(data) {
-    let dataCopy = data; // Create data copy for reference
-    console.log(data);
+    let dataCopy = [...data]; // Create data copy for reference
 
     for (let i = 3; i < data.length; i += 4) {
         if (checkIfAlpha(data, i)) {
@@ -106,7 +80,6 @@ function normalizeImage(data) {
         }
     }
 
-    console.log(data);
     return data;
 }
 
@@ -121,9 +94,4 @@ function checkIfAlpha(data, i) {
 
 function checkIfWhite(red, green, blue) {
     return red == 255 && green == 255 && blue == 255;
-}
-
-function enableBackUpload() {
-    uploadBackBtn.disabled = false;
-    document.getElementById('back_upload_container').classList.remove('hidden');
 }

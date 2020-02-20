@@ -5,16 +5,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
 <body>
     <div class="panel upload-container">
-        <h2 class="card-heading">Files</h2>
+        <h1 class="card-heading">2D Design Generator</h1>
+        <small class="notice">* Sample images available at <span class="italic">uploads</span> folder inside the project root folder.</small>
         <div class="front-upload-container">
-            <label>Artwork:</label>
+            <label>Artwork (Background):</label>
             <input class="file-input" id="front_artwork" type="file">
-            <label>Text:</label>
+            <label>Text (Foreground):</label>
             <input class="file-input" id="front_text" type="file">
             <label>Texture:</label>
             <select class="file-input select" id="texture">
@@ -24,16 +25,6 @@
                 <option value="silver-shiny-v">Gradient Silver (V)</option>
             </select>
             <button class="btn-primary" id="upload_front_btn">Process Images</button>
-        </div>
-    </div>
-    <div class="panel upload-container hidden" id="back_upload_container">
-        <h2 class="card-heading">Back</h2>
-        <div class="back-upload-container">
-            <label>Artwork:</label>
-            <input class="btn-default file-input" id="back_artwork" type="file">
-            <label>Text:</label>
-            <input class="btn-default file-input" id="back_text" type="file">
-            <button class="btn-primary" id="upload_back_btn">Process Images</button>
         </div>
     </div>
     <div class="panel preview-container">

@@ -9,6 +9,14 @@ body {
 .card-heading {
     margin-top: 0;
 }
+.notice {
+    color: green;
+    display: block;
+    margin-bottom: 15px;
+}
+.italic {
+    font-style: italic;
+}
 .preview-container {
     border-top: none !important;
     border-bottom: none !important;
