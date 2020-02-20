@@ -1,4 +1,6 @@
 body {
+    width: 100%;
+    height: 100%;
     margin: 0;
     background-color: gray !important;
     position: absolute;
@@ -18,6 +20,7 @@ body {
     font-style: italic;
 }
 .preview-container {
+    background-color: white;
     border-top: none !important;
     border-bottom: none !important;
     border-right: none !important;
@@ -32,19 +35,18 @@ body {
     display: block;
 }
 .upload-container {
+    margin: 20px auto 0;
     width: 1156px;
     padding: 10px;
 }
 .preview-container {
-    width: 100%;
-    height: 298px;
-    display: flex;
+    overflow: auto;
+    margin: 10px auto 0;
     padding: 10px;
 }
 .preview-item {
+    display: block;
+    margin: 0 auto;
     border: 1px solid black;
     background-color: white;
-}
-.preview-item + .preview-item {
-    margin-left: 10px;
 }
